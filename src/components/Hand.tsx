@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
@@ -8,6 +8,9 @@ const Hand = () => {
   // 웹캠과 캔버스 요소에 대한 ref 생성
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]);
+  const [mode, setMode] = useState<string>("move");
+
   // Results : 손 인식 결과
   const resultsRef = useRef<Results>();
 
@@ -20,8 +23,9 @@ const Hand = () => {
     resultsRef.current = results;
 
     const canvasCtx = canvasRef.current!.getContext("2d")!; 
-    drawCanvas(canvasCtx, results);
-  }, []);
+    drawCanvas(canvasCtx, results, coordList, mode);
+    console.log(mode);
+  }, [mode, coordList]);
 
   // 초기 설정
   // Hands 클래스 초기화
@@ -63,7 +67,7 @@ const Hand = () => {
       });
       camera.start();
     }
-  }, [ResultsListener]);
+  }, [ResultsListener, mode]);
 
   /*  랜드마크들의 좌표를 콘솔에 출력 */
   const OutputData = () => {
@@ -83,7 +87,7 @@ const Hand = () => {
         screenshotFormat="image/jpeg"
         videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
       />
-      {/* 랜드마크를 손에 표시 */}
+      {/* 캔버스 */}
       <canvas
         ref={canvasRef}
         width={1280}
@@ -93,6 +97,9 @@ const Hand = () => {
       <div>
         <button onClick={OutputData}>
           Output Data
+        </button>
+        <button onClick={function(){setMode("draw")}}>
+          Draw
         </button>
       </div>
     </div>
