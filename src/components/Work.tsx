@@ -1,4 +1,5 @@
 import React from "react";
+import Hand from "./Hand";
 
 const Work: React.FC = () => {
     return (
@@ -9,6 +10,7 @@ const Work: React.FC = () => {
                 <li className="step"></li>
                 <li className="step"></li>
             </ul>
+            <Hand></Hand>
         </>
     );
 };
