@@ -9,7 +9,7 @@ const Hand = () => {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]);
-  const [mode, setMode] = useState<string>("init");
+  // const [mode, setMode] = useState<string>("init");
   // Results : 손 인식 결과
   const resultsRef = useRef<Results>();
 
@@ -20,13 +20,13 @@ const Hand = () => {
 
   // Hands 클래스가 랜드마크 인식 작업의 결과를 반환할 때 ResultsListener가 호출됨
   // ResultsListener 콜백 함수는 손의 랜드마크 인식 결과가 convasRef에 그려지도록 함
-  // const ResultsListener = (results: Results) => {
-  //   resultsRef.current = results;
 
-  //   const canvasCtx = canvasRef.current!.getContext("2d")!; 
-  //   drawCanvas(canvasCtx, results, coordList, mode);
-  // };
+  const ResultsListener = (results: Results) => {
+    resultsRef.current = results;
 
+    const canvasCtx = canvasRef.current!.getContext("2d")!;
+    drawCanvas(canvasCtx, results, coordList);
+  };
 
 
   // 초기 설정
@@ -47,13 +47,7 @@ const Hand = () => {
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5,
     });
-
-    const ResultsListener = (results: Results) => {
-      resultsRef.current = results;
-  
-      const canvasCtx = canvasRef.current!.getContext("2d")!; 
-      drawCanvas(canvasCtx, results, coordList, mode);
-    };
+    
 
     // ResultsListener 함수를 등록하는 역할
     // 손 인식 결과가 발생할 때마다 ResultsListener 함수를 호출하도록 설정한다.
@@ -78,7 +72,7 @@ const Hand = () => {
     }
 
     
-  },);
+  },[ResultsListener]);
 
   /*  랜드마크들의 좌표를 콘솔에 출력 */
   const OutputData = () => {
@@ -108,12 +102,6 @@ const Hand = () => {
       <div>
         <button onClick={OutputData}>
           Output Data
-        </button>
-        <button onClick={function(){setMode("move")}}>
-          Move
-        </button>
-        <button onClick={function(){setMode("draw")}}>
-          Draw
         </button>
       </div>
     </div>
