@@ -63,12 +63,13 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
       // 이동 모드
       if (mode === "move"){
-        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = '#FFF';
+        ctx.fillRect(0, 0, width, height);
         // 각 랜드마크 그리기
         drawLandmarks(ctx, indexLandmarkList, {
-          color: "#A374DB",
+          color: "#000000",
           lineWidth: 1,
-          radius: 5,
+          radius: 2,
         });
       }
       
@@ -79,7 +80,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           ctx.moveTo(coordList[coordList.length - 2].x, coordList[coordList.length - 2].y);
           ctx.lineTo(coordList[coordList.length - 1].x, coordList[coordList.length - 1].y);
           ctx.lineWidth = 3;
-          ctx.strokeStyle = 'yellow';
+          ctx.strokeStyle = '#000000';
           ctx.stroke();
           // console.log(coordList[coordList.length-1]);
         }

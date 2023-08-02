@@ -71,14 +71,13 @@ const Hand = () => {
       camera.start();
     }
 
+    const canvasCtx = canvasRef.current!.getContext("2d")!;
+    canvasCtx.fillStyle = '#FFF';
+    canvasCtx.fillRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
+
     
   },[ResultsListener]);
 
-  /*  랜드마크들의 좌표를 콘솔에 출력 */
-  const OutputData = () => {
-    const results = resultsRef.current!;
-    console.log(results.multiHandLandmarks);
-  };
 
   return (
     <div>
@@ -98,12 +97,6 @@ const Hand = () => {
         width={1280}
         height={720}
       />
-      {/* 좌표 출력 */}
-      <div>
-        <button onClick={OutputData}>
-          Output Data
-        </button>
-      </div>
     </div>
   );
 };
