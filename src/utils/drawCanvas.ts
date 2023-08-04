@@ -10,9 +10,10 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let y : number;
   const indexLandmarkList : NormalizedLandmarkList = [];
 
-	// 손 동작 모드 : move, draw, done
+   // 손 동작 모드 : move, draw, done
   let mode;
-	// 손가락 상태 판단을 위한 변수
+   // 손가락 상태 판단을 위한 변수
+  let index_finger;
   let middle_finger;
   let ring_finger;
 
@@ -39,18 +40,24 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
         // console.log("검지손가락",handLandmarks[8].x);
         x = handLandmarks[8].x * 1280;
         y = handLandmarks[8].y * 720;
+        if (coordList.length >= 2) {
+          x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;
+          y = coordList[coordList.length - 1].y + (y - coordList[coordList.length - 1].y)/4;
+          console.log("check",x,y);
+        }
         coordList.push({x, y})
         indexLandmarkList.push(handLandmarks[8])
 
         // 손가락을 접은 경우 true
+        index_finger = calculateDistance(handLandmarks[8], handLandmarks[0]) < calculateDistance(handLandmarks[5], handLandmarks[0]);
         middle_finger = calculateDistance(handLandmarks[12], handLandmarks[0]) < calculateDistance(handLandmarks[9], handLandmarks[0]);
         ring_finger = calculateDistance(handLandmarks[16], handLandmarks[0]) < calculateDistance(handLandmarks[13], handLandmarks[0]);
-        if (!middle_finger && !ring_finger){
+        if (!index_finger && !middle_finger && !ring_finger){
           mode = "move";
-        }else if (middle_finger && ring_finger){
-          mode = "draw";
-        }else if (middle_finger && !ring_finger){
+        }else if (!index_finger && middle_finger){
           mode = "done";
+        }else if (!index_finger && !middle_finger){
+          mode = "draw";
         }
       }
       // 골격 그리기

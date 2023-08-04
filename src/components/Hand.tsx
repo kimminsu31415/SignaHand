@@ -84,7 +84,8 @@ const Hand = () => {
       {/* 비디오 캡쳐 */}
       <Webcam
         audio={false}
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
+        mirrored = {true}
         width={1280}
         height={720}
         ref={webcamRef}
