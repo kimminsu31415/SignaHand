@@ -40,9 +40,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   if (results.multiHandLandmarks) {
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
-        // console.log("검지손가락",handLandmarks[8].x);
         x = handLandmarks[8].x * 1280;
         y = handLandmarks[8].y * 720;
+        // 손 떨림 보정
         if (coordList.length >= 2) {
           x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;
           y = coordList[coordList.length - 1].y + (y - coordList[coordList.length - 1].y)/4;

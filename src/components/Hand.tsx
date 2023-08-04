@@ -5,14 +5,11 @@ import { Hands, Results } from "@mediapipe/hands";
 import { drawCanvas } from "../utils/drawCanvas";
 
 const Hand = () => {
-  // 웹캠과 캔버스 요소에 대한 ref 생성
-  const webcamRef = useRef<Webcam>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasRefTop = useRef<HTMLCanvasElement>(null);
-  const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]);
-  // const [mode, setMode] = useState<string>("init");
-  // Results : 손 인식 결과
-  const resultsRef = useRef<Results>();
+  const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
+  const canvasRef = useRef<HTMLCanvasElement>(null); // 서명을 위한 canvas
+  const canvasRefTop = useRef<HTMLCanvasElement>(null); // 검지 랜드마크를 그리기 위한 canvas
+  const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]); // 랜드마크 좌표 저장
+  const resultsRef = useRef<Results>();  // Results : 손 인식 결과
 
 
 
@@ -21,7 +18,6 @@ const Hand = () => {
 
   // Hands 클래스가 랜드마크 인식 작업의 결과를 반환할 때 ResultsListener가 호출됨
   // ResultsListener 콜백 함수는 손의 랜드마크 인식 결과가 convasRef에 그려지도록 함
-
   const ResultsListener = (results: Results) => {
     resultsRef.current = results;
 
@@ -73,6 +69,7 @@ const Hand = () => {
       camera.start();
     }
 
+    // Hand 컴포넌트 렌더링된 후 canvas 초기화
     const canvasCtx = canvasRef.current!.getContext("2d")!;
     canvasCtx.fillStyle = '#FFF';
     canvasCtx.fillRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
