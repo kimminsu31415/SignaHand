@@ -31,9 +31,15 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <PdfUploader/>
+                <div className="row-span-1 flex items-center justify-center">
+                    <div className="w-full">
+                        {/*<Link to="/work">*/}
+                        {/*    <p className="btn btn-primary w-full text-2xl font-bold font-mono">work</p>*/}
+                        {/*</Link>*/}
+                        <PdfUploader />
+                    </div>
+                </div>
             </div>
-
         </>
     );
 };
