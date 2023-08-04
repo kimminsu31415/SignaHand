@@ -2,7 +2,7 @@ import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { HAND_CONNECTIONS, Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";
 
 
-export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coordList: { x: number; y: number }[]) => {
+export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coordList: { x: number; y: number }[], ctxTop: CanvasRenderingContext2D) => {
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
 
@@ -10,9 +10,10 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let y : number;
   const indexLandmarkList : NormalizedLandmarkList = [];
 
-	// 손 동작 모드 : move, draw, done
+   // 손 동작 모드 : move, draw, done
   let mode;
-	// 손가락 상태 판단을 위한 변수
+   // 손가락 상태 판단을 위한 변수
+  let index_finger;
   let middle_finger;
   let ring_finger;
 
@@ -26,9 +27,12 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
 
   ctx.save();
+  ctxTop.save();
   // canvas의 좌우 반전
   ctx.scale(-1, 1);
   ctx.translate(-width, 0);
+  ctxTop.scale(-1, 1);
+  ctxTop.translate(-width, 0);
   // 캔버스에 웹캠 스트림으로부터 받은 이미지를 그린다.
   // ctx.drawImage(results.image, 0, 0, width, height);
 
@@ -36,21 +40,26 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   if (results.multiHandLandmarks) {
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
-        // console.log("검지손가락",handLandmarks[8].x);
         x = handLandmarks[8].x * 1280;
         y = handLandmarks[8].y * 720;
+        // 손 떨림 보정
+        if (coordList.length >= 2) {
+          x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;
+          y = coordList[coordList.length - 1].y + (y - coordList[coordList.length - 1].y)/4;
+        }
         coordList.push({x, y})
         indexLandmarkList.push(handLandmarks[8])
 
         // 손가락을 접은 경우 true
+        index_finger = calculateDistance(handLandmarks[8], handLandmarks[0]) < calculateDistance(handLandmarks[5], handLandmarks[0]);
         middle_finger = calculateDistance(handLandmarks[12], handLandmarks[0]) < calculateDistance(handLandmarks[9], handLandmarks[0]);
         ring_finger = calculateDistance(handLandmarks[16], handLandmarks[0]) < calculateDistance(handLandmarks[13], handLandmarks[0]);
-        if (!middle_finger && !ring_finger){
-          mode = "move";
-        }else if (middle_finger && ring_finger){
-          mode = "draw";
-        }else if (middle_finger && !ring_finger){
+        if (!index_finger && !middle_finger && !ring_finger){
+          mode = "erase";
+        }else if (!index_finger && middle_finger){
           mode = "done";
+        }else if (!index_finger && !middle_finger){
+          mode = "draw";
         }
       }
       // 골격 그리기
@@ -61,16 +70,18 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
       console.log(mode);
 
-      // 이동 모드
-      if (mode === "move"){
+      // 검지 랜드마크를 항상 그려준다
+      ctxTop.clearRect(0, 0, width, height);
+      drawLandmarks(ctxTop, indexLandmarkList, {
+        color: "#000000",
+        lineWidth: 1,
+        radius: 2,
+      });
+
+      // 캔버스 전체 지우기 모드
+      if (mode === "erase"){
         ctx.fillStyle = '#FFF';
         ctx.fillRect(0, 0, width, height);
-        // 각 랜드마크 그리기
-        drawLandmarks(ctx, indexLandmarkList, {
-          color: "#000000",
-          lineWidth: 1,
-          radius: 2,
-        });
       }
       
       // 그리기 모드
@@ -92,4 +103,5 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
     }
   }
   ctx.restore();
+  ctxTop.restore();
 };
