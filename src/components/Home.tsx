@@ -31,7 +31,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row-span-1 flex items-center justify-center">
+                <div className="row-span-1 flex items-center justify-center border border-black">
                     <div className="w-full">
                         {/*<Link to="/work">*/}
                         {/*    <p className="btn btn-primary w-full text-2xl font-bold font-mono">work</p>*/}
