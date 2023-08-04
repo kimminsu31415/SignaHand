@@ -8,6 +8,7 @@ const Hand = () => {
   // 웹캠과 캔버스 요소에 대한 ref 생성
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRefTop = useRef<HTMLCanvasElement>(null);
   const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]);
   // const [mode, setMode] = useState<string>("init");
   // Results : 손 인식 결과
@@ -25,7 +26,8 @@ const Hand = () => {
     resultsRef.current = results;
 
     const canvasCtx = canvasRef.current!.getContext("2d")!;
-    drawCanvas(canvasCtx, results, coordList);
+    const canvasCtxTop = canvasRefTop.current!.getContext("2d")!;
+    drawCanvas(canvasCtx, results, coordList, canvasCtxTop);
   };
 
 
@@ -81,24 +83,32 @@ const Hand = () => {
 
   return (
     <div>
-      {/* 비디오 캡쳐 */}
-      <Webcam
-        audio={false}
-        // style={{ visibility: "hidden" }}
-        mirrored = {true}
-        width={1280}
-        height={720}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
-      />
-      {/* 캔버스 */}
-      <canvas
+    {/* 비디오 캡쳐 */}
+    <Webcam
+      audio={false}
+      // style={{ visibility: "hidden" }}
+      mirrored = {true}
+      width={1280}
+      height={720}
+      ref={webcamRef}
+      screenshotFormat="image/jpeg"
+      videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
+    />
+    {/* 캔버스 */}
+    <div style={{ position: 'relative', width: '1280px', height: '720 '}}>
+      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
         ref={canvasRef}
         width={1280}
         height={720}
       />
+      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
+        ref={canvasRefTop}
+        width={1280}
+        height={720}
+      />
     </div>
+    
+  </div>
   );
 };
 
