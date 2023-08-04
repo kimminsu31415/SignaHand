@@ -30,16 +30,8 @@ const Home = () => {
                             <img src="assets/images/img.png" className="w-full h-auto rounded-lg" alt="Sample Image"/>
                         </div>
                     </div>
-
                 </div>
-                <div className="row-span-1 flex items-center justify-center">
-                    <div className="w-full">
-                        {/*<Link to="/work">*/}
-                        {/*    <p className="btn btn-primary w-full text-2xl font-bold font-mono">work</p>*/}
-                        {/*</Link>*/}
-                        <PdfUploader />
-                    </div>
-                </div>
+                <PdfUploader/>
             </div>
 
         </>
