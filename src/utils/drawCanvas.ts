@@ -17,6 +17,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let middle_finger;
   let ring_finger;
 
+  // base64 문자열 저장
+  let base = "";
+
   // 두 점 거리 계산 함수
   const calculateDistance = (p1: NormalizedLandmark, p2: NormalizedLandmark): number => {
     const deltaX = p2.x - p1.x;
@@ -98,10 +101,16 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
       }
       else{
         console.log("done");
+        const canvasValue = ctx.canvas
+        base = canvasValue.toDataURL();
+        
+        // console.log(base);
       }
       
     }
   }
   ctx.restore();
   ctxTop.restore();
+
+  return base;
 };

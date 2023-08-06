@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
 import { drawCanvas } from "../utils/drawCanvas";
 
-const Hand = () => {
+interface HandProps {
+  onBaseDataUrlChange: (baseDataUrl: string) => void;
+}
+
+const Hand: React.FC<HandProps> = ({ onBaseDataUrlChange }) => {
   const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
   const canvasRef = useRef<HTMLCanvasElement>(null); // 서명을 위한 canvas
   const canvasRefTop = useRef<HTMLCanvasElement>(null); // 검지 랜드마크를 그리기 위한 canvas
@@ -23,7 +27,10 @@ const Hand = () => {
 
     const canvasCtx = canvasRef.current!.getContext("2d")!;
     const canvasCtxTop = canvasRefTop.current!.getContext("2d")!;
-    drawCanvas(canvasCtx, results, coordList, canvasCtxTop);
+    const baseDataUrl = drawCanvas(canvasCtx, results, coordList, canvasCtxTop);
+
+    onBaseDataUrlChange(baseDataUrl); // 콜백 호출해 부모 컴포넌트 Work로 base64 문자열 전달
+    
   };
 
 
@@ -104,7 +111,6 @@ const Hand = () => {
         height={720}
       />
     </div>
-    
   </div>
   );
 };
