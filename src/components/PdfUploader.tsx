@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
+import Work from "./Work";
 
 /* PdfUploader.tsx
 * 사용자가 pdf 파일을 입력하는 컴포넌트*/
@@ -23,9 +24,7 @@ const PdfUploader: React.FC = () => {
                 />
             </label>
             {selectedFile && (
-                <Link to="/work" className="btn text-xl">
-                    work
-                </Link>
+                <Link to="/work" state={{file: selectedFile}} className="btn text-xl">edit</Link>
             )}
         </div>
     );
