@@ -6,6 +6,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
 
+
   let x : number;
   let y : number;
   const indexLandmarkList : NormalizedLandmarkList = [];
@@ -99,13 +100,14 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           // console.log(coordList[coordList.length-1]);
         }
       }
-      else{
+      else if (mode ==="done"){
         console.log("done");
         const canvasValue = ctx.canvas
         base = canvasValue.toDataURL();
         
         // console.log(base);
       }
+      // else 예외 처리 코드 추가
       
     }
   }

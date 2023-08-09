@@ -1,13 +1,12 @@
 import React from "react";
+import { useHandContext } from "../contexts/HandContext";
 
-// canvas를 렌더링할 지 결정하기 위한 props
-interface CanvasType {
-    onChangeCanvas: (CanvasType: string) => void;
-}
+const SignButton: React.FC = () => {
+    const { setCanvas } = useHandContext();
 
-const SignButton: React.FC<CanvasType> = (props) => {
+    // 서명 캔버스 띄우기
     const buttonHandler = () => {
-        props.onChangeCanvas("view");
+        setCanvas("view");
     }
 
     return(

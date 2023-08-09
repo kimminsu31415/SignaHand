@@ -3,23 +3,22 @@ import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
 import { drawCanvas } from "../utils/drawCanvas";
+import { useHandContext } from "../contexts/HandContext";
 
 interface HandProps {
   onBaseDataUrlChange: (baseDataUrl: string) => void;
 }
 
-const Hand: React.FC<HandProps> = ({ onBaseDataUrlChange }) => {
+const Hand: React.FC<HandProps> = () => {
   const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
   const canvasRef = useRef<HTMLCanvasElement>(null); // 서명을 위한 canvas
   const canvasRefTop = useRef<HTMLCanvasElement>(null); // 검지 랜드마크를 그리기 위한 canvas
-  const [coordList, setCoordList] = useState<{ x: number; y: number }[]>([]); // 랜드마크 좌표 저장
   const resultsRef = useRef<Results>();  // Results : 손 인식 결과
-
-
+  const [coordList] = useState<{ x: number; y: number }[]>([]); // 랜드마크 좌표 저장
+  const { handleBaseDataUrlChange } = useHandContext();
 
 
   // 검출결과（프레임마다 호출됨）
-
   // Hands 클래스가 랜드마크 인식 작업의 결과를 반환할 때 ResultsListener가 호출됨
   // ResultsListener 콜백 함수는 손의 랜드마크 인식 결과가 convasRef에 그려지도록 함
   const ResultsListener = (results: Results) => {
@@ -29,7 +28,7 @@ const Hand: React.FC<HandProps> = ({ onBaseDataUrlChange }) => {
     const canvasCtxTop = canvasRefTop.current!.getContext("2d")!;
     const baseDataUrl = drawCanvas(canvasCtx, results, coordList, canvasCtxTop);
 
-    onBaseDataUrlChange(baseDataUrl); // 콜백 호출해 부모 컴포넌트 Work로 base64 문자열 전달
+    handleBaseDataUrlChange(baseDataUrl); // 콜백 호출해 부모 컴포넌트 Work로 base64 문자열 전달
     
   };
 
