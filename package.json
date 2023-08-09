@@ -14,6 +14,7 @@
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.16",
     "@types/react-dom": "^18.2.7",
+    "pdfjs-dist": "^3.9.179",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.14.2",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "daisyui": "^3.5.0",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "ts-loader": "^9.4.4"
   }
 }

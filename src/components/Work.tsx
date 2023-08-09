@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import SignButton from './SignButton';
 import Hand from './Hand';
+import {useLocation} from "react-router";
+import PdfViewer from "./PdfViewer";
 
 const Work: React.FC = () => {
     const [canvas, setCanvas] = useState<string>("non-view"); // 서명 추가 상태 관리
     const [baseDataUrl, setBaseDataUrl] = useState<string>("");
+
+    /* Home 컴포넌트에서 사용자에게 입력받은 PDF 파일 넘겨받기*/
+    const location = useLocation();
+    const file = location.state.file;
 
     // 서명 추가 버튼 클릭 이벤트 함수
     const handleCanvasChange = (canvasType: string) => {
@@ -22,15 +28,8 @@ const Work: React.FC = () => {
 
     return (
         <>
-            <ul className="steps flex justify-center w-full">
-                <li className="step step-primary"></li>
-                <li className="step step-primary"></li>
-                <li className="step"></li>
-                <li className="step"></li>
-            </ul>
-            <div style={{ position: "absolute", top: "0px", left:"600px" }}>
-                <SignButton onChangeCanvas={handleCanvasChange} />
-            </div>
+            <SignButton onChangeCanvas={handleCanvasChange} />
+            <PdfViewer file={file}/>
             <div>
                 {canvas === "view" &&  (
                     <Hand onBaseDataUrlChange={handleBaseDataUrlChange} />
@@ -42,6 +41,7 @@ const Work: React.FC = () => {
                 )}
             </div>
         </>
+
     );
 };
 
