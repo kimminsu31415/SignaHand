@@ -1,10 +1,12 @@
+//npm start를 하면 나오는 최초 화면
+
 import React from "react";
 import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
         <>
-            <div className="grid grid-row-3  h-screen">
+            <div className="grid grid-row-3 h-screen"> 
                 <div className="row-span-2 flex items-center justify-center">
                     <div className="grid grid-cols-3">
                         <div className="col-span-2">
@@ -29,7 +31,6 @@ const Home = () => {
                             <img src="assets/images/img.png" className="w-full h-auto rounded-lg" alt="Sample Image"/>
                         </div>
                     </div>
-
                 </div>
                 <div className="row-span-1 flex items-center justify-center">
                     <div className="w-full">
@@ -37,6 +38,11 @@ const Home = () => {
                             <p className="btn btn-primary w-full text-2xl font-bold font-mono">work</p>
                         </Link>
                     </div>
+                </div>
+                <div>
+                    <Link to="/Test">
+                        <p className="btn btn-primary w-full text-2xl font-bold font-mono">Test</p>
+                    </Link>
                 </div>
             </div>
 
