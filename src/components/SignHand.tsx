@@ -9,7 +9,7 @@ interface HandProps {
   onBaseDataUrlChange: (baseDataUrl: string) => void;
 }
 
-const Hand: React.FC<HandProps> = () => {
+const SignHand: React.FC<HandProps> = () => {
   const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
   const canvasRef = useRef<HTMLCanvasElement>(null); // 서명을 위한 canvas
   const canvasRefTop = useRef<HTMLCanvasElement>(null); // 검지 랜드마크를 그리기 위한 canvas
@@ -61,19 +61,26 @@ const Hand: React.FC<HandProps> = () => {
     // <video> 요소에 대한 참조
     // Camera 객체의 onFrame 속성에 콜백 함수 등록. 프레임 캡처될 때마다 실행됨
     // 웹캠에서 프레임 캡처하고, 해당 프레임을 Hands 객체로 전송
+
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null
     ) {
       const camera = new Camera(webcamRef.current.video!, {
         onFrame: async () => {
-          await hands.send({ image: webcamRef.current!.video! });
+          try {
+            await hands.send({ image: webcamRef.current!.video! });
+          } catch(error) {
+            console.log(error);
+          }
         },
         width: 1280,
         height: 720,
       });
       camera.start();
     }
+  
+    
 
     // Hand 컴포넌트 렌더링된 후 canvas 초기화
     const canvasCtx = canvasRef.current!.getContext("2d")!;
@@ -114,4 +121,4 @@ const Hand: React.FC<HandProps> = () => {
   );
 };
 
-export default Hand;
+export default SignHand;

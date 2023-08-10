@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useHandContext } from "../contexts/HandContext";
 import SignButton from './SignButton';
-import Hand from './Hand';
+import SignHand from "./SignHand";
+import ResizeHand from "./ResizeHand";
 import {useLocation} from "react-router";
 import PdfViewer from "./PdfViewer";
 
 const Work: React.FC = () => {
-    const { canvas, baseDataUrl, handleBaseDataUrlChange } = useHandContext();
+    const { canvas, baseDataUrl, handleBaseDataUrlChange, signWidth, signHeight } = useHandContext();
 
     /* Home 컴포넌트에서 사용자에게 입력받은 PDF 파일 넘겨받기*/
     const location = useLocation();
@@ -18,12 +19,21 @@ const Work: React.FC = () => {
             <PdfViewer file={file}/>
             <div>
                 {canvas === "view" &&  (
-                    <Hand onBaseDataUrlChange={handleBaseDataUrlChange} />
+                    <SignHand onBaseDataUrlChange={handleBaseDataUrlChange} />
                 )}
             </div>
             <div style={{ position: "absolute", top: "0px", left:"1300px" }}>
                 {baseDataUrl != "" && (
-                    <img src={baseDataUrl}/>
+                    <img 
+                        src={baseDataUrl}
+                        width={signWidth}
+                        height={signHeight}
+                    />
+                )}
+            </div>
+            <div>
+                {canvas ==="non-view" && (
+                    <ResizeHand />
                 )}
             </div>
         </>

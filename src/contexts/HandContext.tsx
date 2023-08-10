@@ -8,6 +8,10 @@ interface HandContextType {
     baseDataUrl: string;
     setBaseDataUrl: React.Dispatch<React.SetStateAction<string>>;
     handleBaseDataUrlChange: (baseDataUrl: string) => void;
+    signWidth: number;
+    setSignWidth: React.Dispatch<React.SetStateAction<number>>;
+    signHeight: number;
+    setSignHeight: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface HandContextProviderProps {
@@ -30,6 +34,8 @@ export const useHandContext = () => {
 export const HandContextProvider: React.FC<HandContextProviderProps> = ({ children }) => {
     const [canvas, setCanvas] = useState<string>("non-view");
     const [baseDataUrl, setBaseDataUrl] = useState<string>("");
+    const [signWidth, setSignWidth] = useState<number>(100);
+    const [signHeight, setSignHeight] = useState<number>(100);
 
 
     const handleBaseDataUrlChange = (baseDataUrl: string) => {
@@ -48,6 +54,10 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
                 setBaseDataUrl,
                 baseDataUrl,
                 handleBaseDataUrlChange,
+                signWidth,
+                signHeight,
+                setSignWidth,
+                setSignHeight
             }}
         >
             {children}
