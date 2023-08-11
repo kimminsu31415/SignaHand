@@ -48,7 +48,7 @@ function ModalBasic({ setModalOpen, id, title, content, writer }: ModalBasicProp
             <button className={styles.close} onClick={closeModal}>
                 X
             </button>
-            <p>손으로 그리기</p>
+            <p>손으로 그리기!</p>
         </div>
     );
 }
