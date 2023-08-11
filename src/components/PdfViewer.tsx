@@ -49,7 +49,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({file}) => {
         };
 
         loadPDF();
-    }, [pdfUrl]);
+    }, []);
 
     return (
         <>

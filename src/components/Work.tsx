@@ -7,7 +7,8 @@ import {useLocation} from "react-router";
 import PdfViewer from "./PdfViewer";
 
 const Work: React.FC = () => {
-    const { canvas, baseDataUrl, handleBaseDataUrlChange, signWidth, signHeight } = useHandContext();
+    const { canvas, baseDataUrl, handleBaseDataUrlChange } = useHandContext();
+    const { signWidth, signHeight } = useHandContext();
 
     /* Home 컴포넌트에서 사용자에게 입력받은 PDF 파일 넘겨받기*/
     const location = useLocation();
@@ -16,6 +17,7 @@ const Work: React.FC = () => {
     return (
         <>
             <SignButton />
+            
             <PdfViewer file={file}/>
             <div>
                 {canvas === "view" &&  (
