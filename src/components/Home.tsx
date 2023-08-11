@@ -1,7 +1,8 @@
 //npm start를 하면 나오는 최초 화면
 
 import React from "react";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
+import PdfUploader from "./PdfUploader";
 
 const Home = () => {
     return (
@@ -32,11 +33,9 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row-span-1 flex items-center justify-center">
+                <div className="row-span-1 flex items-center justify-center border border-black">
                     <div className="w-full">
-                        <Link to="/work">
-                            <p className="btn btn-primary w-full text-2xl font-bold font-mono">work</p>
-                        </Link>
+                        <PdfUploader />
                     </div>
                 </div>
                 <div>
@@ -45,7 +44,6 @@ const Home = () => {
                     </Link>
                 </div>
             </div>
-
         </>
     );
 };
