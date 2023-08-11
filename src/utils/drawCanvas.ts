@@ -6,6 +6,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
 
+
   let x : number;
   let y : number;
   const indexLandmarkList : NormalizedLandmarkList = [];
@@ -16,6 +17,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let index_finger;
   let middle_finger;
   let ring_finger;
+
+  // base64 문자열 저장
+  let base = "";
 
   // 두 점 거리 계산 함수
   const calculateDistance = (p1: NormalizedLandmark, p2: NormalizedLandmark): number => {
@@ -96,12 +100,19 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           // console.log(coordList[coordList.length-1]);
         }
       }
-      else{
+      else if (mode ==="done"){
         console.log("done");
+        const canvasValue = ctx.canvas
+        base = canvasValue.toDataURL();
+        
+        // console.log(base);
       }
+      // else 예외 처리 코드 추가
       
     }
   }
   ctx.restore();
   ctxTop.restore();
+
+  return base;
 };

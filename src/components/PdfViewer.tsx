@@ -65,7 +65,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
         };
 
         loadPDF();
-    }, [pdfUrl]);
+    }, []);
 
     return (
         <div className="w-full h-full relative">
