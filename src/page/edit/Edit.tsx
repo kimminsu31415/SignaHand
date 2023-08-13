@@ -20,18 +20,17 @@ const Edit: React.FC = () => {
 
     return (
         <>
-            <div className="grid grid-cols-3 h-screen flex">
-                <div>
+            <div className="grid grid-cols-5 h-screen flex">
+                <div className="col-span-1">
                     <SignatureDisplay/>
                 </div>
-                <div>
+                <div className="col-span-3">
                     <PdfDisplay file={file}/>
                 </div>
-                <div>
+                <div className="col-span-1">
                     <PreviewDisplay/>
                 </div>
             </div>
-            );
             {/*****************************************************************************************/}
             {/*<div>*/}
             {/*    {canvas === "non-view" && (*/}
