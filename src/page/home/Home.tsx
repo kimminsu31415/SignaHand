@@ -1,7 +1,8 @@
-//npm start를 하면 나오는 최초 화면
-
+/*
+* export default component name: Home
+* dev: kimminsu31415
+* description: 루트 페이지 첫 화면, npm start하면 나오는 화면*/
 import React from "react";
-// import {Link} from "react-router-dom";
 import PdfUploader from "./components/PdfUploader";
 
 const Home = () => {

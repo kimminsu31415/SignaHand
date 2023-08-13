@@ -1,3 +1,8 @@
+/*
+* export default comonent name: PdfDisplay
+* dev: codeartitect
+* description: pdf파일을 보여주고 서명 데이터를 입력시킬 수 있는 컴포넌트
+* */
 import React, { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import Loading from "../../../loading/Loading";
@@ -7,14 +12,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.vers
 interface PdfDisplayProps {
     file: File;
 }
-
-const LoadingScreen: React.FC = () => {
-    return (
-        <div className="loading-screen">
-            Loading...
-        </div>
-    );
-};
 
 const PdfDisplay: React.FC<PdfDisplayProps> = ({ file }) => {
     const containerRef = useRef<HTMLDivElement>(null);

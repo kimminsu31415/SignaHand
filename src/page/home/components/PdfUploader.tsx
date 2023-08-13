@@ -1,9 +1,12 @@
+/*
+* export default component name: PdfUploader
+* dev: codeartitect
+* description: 사용자에게 PDF 파일을 입력받는 컴포넌트
+* */
 import React, {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
 import Edit from "../../edit/Edit";
 
-/* PdfUploader.tsx
-* 사용자가 pdf 파일을 입력하는 컴포넌트*/
 const PdfUploader: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 

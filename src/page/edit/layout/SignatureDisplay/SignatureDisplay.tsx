@@ -1,6 +1,10 @@
-import React, {useRef, useState} from "react";
+/*
+* export default component name: SignatureDisplay
+* dev: dev: kimminsu31415
+* description: ~~~~~~~~~~~~
+* */
+import React, {useRef} from "react";
 import SignatureModal from "../modal/SignatureModal";
-import SignButton from "./components/SignButton";
 import {useHandContext} from "../../../../context/HandContext";
 
 const SignatureDisplay: React.FC = () => {

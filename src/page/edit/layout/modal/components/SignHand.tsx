@@ -1,3 +1,8 @@
+/*
+* export default component name: SignHand
+* dev: seon5
+* description: ~~~~~~~~~~~~~
+* */
 import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
@@ -92,32 +97,34 @@ const SignHand: React.FC<HandProps> = () => {
 
 
   return (
-    <div>
-    {/* 비디오 캡쳐 */}
-    <Webcam
-      audio={false}
-      // style={{ visibility: "hidden" }}
-      mirrored = {true}
-      width={400}
-      height={300}
-      ref={webcamRef}
-      screenshotFormat="image/jpeg"
-      videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
-    />
-    {/* 캔버스 */}
-    <div style={{ position: 'relative', width: '1280px', height: '720 '}}>
-      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
-        ref={canvasRef}
-        width={400}
-        height={300}
-      />
-      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
-        ref={canvasRefTop}
-        width={400}
-        height={300}
-      />
-    </div>
-  </div>
+      <>
+        <div>
+          {/* 비디오 캡쳐 */}
+          <Webcam
+              audio={false}
+              // style={{ visibility: "hidden" }}
+              mirrored={true}
+              width={1280}
+              height={720}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={{width: 1280, height: 720, facingMode: "user"}}
+          />
+          {/* 캔버스 */}
+          <div style={{position: 'relative', width: '1280px', height: '720 '}}>
+            <canvas style={{position: "absolute", top: "0px", left: "0px"}}
+                    ref={canvasRef}
+                    width={1280}
+                    height={720}
+            />
+            <canvas style={{position: "absolute", top: "0px", left: "0px"}}
+                    ref={canvasRefTop}
+                    width={1280}
+                    height={720}
+            />
+          </div>
+        </div>
+      </>
   );
 };
 

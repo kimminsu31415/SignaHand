@@ -1,3 +1,9 @@
+/*
+* export default component name: ResizeHand
+* dev: sean5
+* description: 손동작~~~~~~~~~~~~~
+* 이 라인은 확인하면 지울 것!!!!! -> 이 컴포넌트는 어디에 위치시키면 좋을지 모르겠어서 디렉터리 구조보고 요령껏 위치시켜주세여~
+* */
 import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";

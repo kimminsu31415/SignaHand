@@ -1,3 +1,8 @@
+/*
+* export default module name: resizeImg
+* dev: seon5
+* description: ~~~~~~~~~~~~~~
+* */
 import { Results, NormalizedLandmark } from "@mediapipe/hands";
 
 export const resizeImg = (results: Results) => {

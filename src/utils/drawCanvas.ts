@@ -1,3 +1,8 @@
+/*
+* export default module name: drawCanvas
+* dev: seon5
+* description: ~~~~~~~~~~~~~~
+* */
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { HAND_CONNECTIONS, Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";
 
