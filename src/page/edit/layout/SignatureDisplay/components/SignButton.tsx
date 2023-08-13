@@ -1,7 +1,11 @@
 import React from "react";
-import { useHandContext } from "../contexts/HandContext";
+import { useHandContext } from "../../../../../context/HandContext";
 
-const SignButton: React.FC = () => {
+interface SignButtonProps {
+    showMadal: () => void
+}
+
+const SignButton: React.FC<SignButtonProps> = ({showMadal}: SignButtonProps) => {
     const { setCanvas } = useHandContext();
 
     // 서명 캔버스 띄우기
@@ -11,7 +15,7 @@ const SignButton: React.FC = () => {
 
     return(
         <>
-            <button onClick={buttonHandler} >
+            <button onClick={buttonHandler} className="btn btn-primary" >
                 add Sign
             </button>
         </>

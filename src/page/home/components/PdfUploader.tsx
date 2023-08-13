@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
-import Work from "./Work";
+import Edit from "../../edit/Edit";
 
 /* PdfUploader.tsx
 * 사용자가 pdf 파일을 입력하는 컴포넌트*/

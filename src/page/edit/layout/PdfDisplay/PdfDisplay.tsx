@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import Loading from "../../../loading/Loading";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
 
-interface PdfViewerProps {
+interface PdfDisplayProps {
     file: File;
 }
 
@@ -15,7 +16,7 @@ const LoadingScreen: React.FC = () => {
     );
 };
 
-const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
+const PdfDisplay: React.FC<PdfDisplayProps> = ({ file }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
 
@@ -35,9 +36,9 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
                 /* PDF 문서 객체 */
                 const pdf = await loadingTask.promise;
 
-                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-
+                // for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                //     const page = await pdf.getPage(pageNum);
+                const page = await pdf.getPage(1);
                     const scale = 1;
                     const viewport = page.getViewport({ scale });
 
@@ -56,7 +57,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
                     container.appendChild(canvas);
 
                     await page.render(renderContext).promise;
-                }
+                // }
             } catch (error) {
                 console.error("Error loading PDF:", error);
             } finally {
@@ -69,10 +70,10 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
 
     return (
         <div className="w-full h-full relative">
-            {loading && <LoadingScreen />}
+            {loading && <Loading />}
             <div ref={containerRef}></div>
         </div>
     );
 };
 
-export default PdfViewer;
+export default PdfDisplay;

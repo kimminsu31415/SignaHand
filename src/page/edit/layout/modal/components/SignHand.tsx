@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
-import { drawCanvas } from "../utils/drawCanvas";
-import { useHandContext } from "../contexts/HandContext";
+import { drawCanvas } from "../../../../../utils/drawCanvas";
+import { useHandContext } from "../../../../../context/HandContext";
 
 interface HandProps {
   onBaseDataUrlChange: (baseDataUrl: string) => void;
@@ -98,8 +98,8 @@ const SignHand: React.FC<HandProps> = () => {
       audio={false}
       // style={{ visibility: "hidden" }}
       mirrored = {true}
-      width={1280}
-      height={720}
+      width={400}
+      height={300}
       ref={webcamRef}
       screenshotFormat="image/jpeg"
       videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
@@ -108,13 +108,13 @@ const SignHand: React.FC<HandProps> = () => {
     <div style={{ position: 'relative', width: '1280px', height: '720 '}}>
       <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
         ref={canvasRef}
-        width={1280}
-        height={720}
+        width={400}
+        height={300}
       />
       <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
         ref={canvasRefTop}
-        width={1280}
-        height={720}
+        width={400}
+        height={300}
       />
     </div>
   </div>

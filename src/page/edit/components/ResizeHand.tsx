@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
-import { resizeImg } from "../utils/resizeImg";
-import { useHandContext } from "../contexts/HandContext";
+import { resizeImg } from "../../../utils/resizeImg";
+import { useHandContext } from "../../../context/HandContext";
 
 
 

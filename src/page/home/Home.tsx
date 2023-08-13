@@ -2,7 +2,7 @@
 
 import React from "react";
 // import {Link} from "react-router-dom";
-import PdfUploader from "./PdfUploader";
+import PdfUploader from "./components/PdfUploader";
 
 const Home = () => {
     return (
@@ -37,11 +37,6 @@ const Home = () => {
                     <div className="w-full">
                         <PdfUploader />
                     </div>
-                </div>
-                <div>
-                    <Link to="/Test">
-                        <p className="btn btn-primary w-full text-2xl font-bold font-mono">Test</p>
-                    </Link>
                 </div>
             </div>
         </>
