@@ -3,7 +3,7 @@ import { Results, NormalizedLandmark } from "@mediapipe/hands";
 export const resizeImg = (results: Results) => {
 
     // 손 동작 모드 : up, down
-    let mode;
+    let resizeMode;
     // 손가락 상태 판단을 위한 변수
     let index_finger;
     let middle_finger;
@@ -27,31 +27,20 @@ export const resizeImg = (results: Results) => {
             middle_finger = calculateDistance(handLandmarks[12], handLandmarks[0]) < calculateDistance(handLandmarks[9], handLandmarks[0]);
             ring_finger = calculateDistance(handLandmarks[16], handLandmarks[0]) < calculateDistance(handLandmarks[13], handLandmarks[0]);
             if (!index_finger && !middle_finger && !ring_finger){
-            mode = "up";
+            resizeMode = "up";
             }else if (index_finger && middle_finger && ring_finger){
-            mode = "down";
-            }else if (!index_finger && !middle_finger){
-            mode = "draw";
+            resizeMode = "down";
             }
         }
 
-
-        console.log(mode);
-
-        // 캔버스 전체 지우기 모드
-        if (mode === "up"){
-            return "up";
+        if (resizeMode === "up"){
+            return "up"; // break point 지정해서 up이나 down이 한 번만 반환되도록 수정해서 과부하 줄여보기.
         }
         
-        // // 그리기 모드
-        // else if (mode === "down"){
-
-        //     }
-        // }
-        // else if (mode ==="draw"){
+        else if (resizeMode === "down"){
+            return "down";
+            }
             
-
-        // }
         // else 예외 처리 코드 추가
         
     }

@@ -1,5 +1,5 @@
 // context API
-import React, { createContext, useContext, useState, ReactNode  } from "react";
+import React, { createContext, useContext, useState, useRef, ReactNode  } from "react";
 
 // 손 동작 관련 컴포넌트에서 사용되는 상태와 함수의 타입 지정
 interface HandContextType {
@@ -8,10 +8,10 @@ interface HandContextType {
     baseDataUrl: string;
     setBaseDataUrl: React.Dispatch<React.SetStateAction<string>>;
     handleBaseDataUrlChange: (baseDataUrl: string) => void;
-    signWidth: number;
-    setSignWidth: React.Dispatch<React.SetStateAction<number>>;
-    signHeight: number;
-    setSignHeight: React.Dispatch<React.SetStateAction<number>>;
+}
+
+interface ResizeContextType {
+    imgRef: React.RefObject<HTMLImageElement>;
 }
 
 interface HandContextProviderProps {
@@ -20,6 +20,7 @@ interface HandContextProviderProps {
 
 // Context 생성
 const HandContext = createContext<HandContextType | undefined>(undefined);
+const ResizeContext = createContext<ResizeContextType | undefined>(undefined);
 
 // HandContext가 관리하는 상태와 함수를 사용할 수 있도록 하는 커스텀 훅
 export const useHandContext = () => {
@@ -30,13 +31,24 @@ export const useHandContext = () => {
     return context;
 }
 
+// ResizeContext가 관리하는 상태와 함수를 사용할 수 있도록 하는 커스텀 훅
+export const useResizeContext = () => {
+    const context = useContext(ResizeContext);
+    if (context === undefined) {
+        throw new Error("useResizeContext should be used within an AppContextProvider");
+    }
+    return context;
+}
+
+
+
 // 상태와 함수를 관리, 제공하는 컴포넌트
 export const HandContextProvider: React.FC<HandContextProviderProps> = ({ children }) => {
     const [canvas, setCanvas] = useState<string>("non-view");
     const [baseDataUrl, setBaseDataUrl] = useState<string>("");
-    const [signWidth, setSignWidth] = useState<number>(100);
-    const [signHeight, setSignHeight] = useState<number>(100);
-
+    const [signWidth, setSignWidth] = useState<string>('100px');
+    const [signHeight, setSignHeight] = useState<string>('100px');
+    const imgRef = useRef<HTMLImageElement>(null);
 
     const handleBaseDataUrlChange = (baseDataUrl: string) => {
         setBaseDataUrl(baseDataUrl);
@@ -54,13 +66,15 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
                 setBaseDataUrl,
                 baseDataUrl,
                 handleBaseDataUrlChange,
-                signWidth,
-                signHeight,
-                setSignWidth,
-                setSignHeight
             }}
         >
-            {children}
+            <ResizeContext.Provider
+                value={{
+                    imgRef
+                }}
+            >
+                {children}
+            </ResizeContext.Provider>
         </HandContext.Provider>
     );
 }

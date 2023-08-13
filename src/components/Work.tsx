@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { useHandContext } from "../contexts/HandContext";
+import React, { useState, useRef } from "react";
+import { useHandContext, useResizeContext } from "../contexts/HandContext";
 import SignButton from './SignButton';
 import SignHand from "./SignHand";
 import ResizeHand from "./ResizeHand";
+import HandTest from "./HandTest";
 import {useLocation} from "react-router";
 import PdfViewer from "./PdfViewer";
 
 const Work: React.FC = () => {
     const { canvas, baseDataUrl, handleBaseDataUrlChange } = useHandContext();
-    const { signWidth, signHeight } = useHandContext();
+    const { imgRef } = useResizeContext();
 
     /* Home 컴포넌트에서 사용자에게 입력받은 PDF 파일 넘겨받기*/
     const location = useLocation();
@@ -28,8 +29,7 @@ const Work: React.FC = () => {
                 {baseDataUrl != "" && (
                     <img 
                         src={baseDataUrl}
-                        width={signWidth}
-                        height={signHeight}
+                        ref = {imgRef}
                     />
                 )}
             </div>
