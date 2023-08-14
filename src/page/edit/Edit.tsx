@@ -6,9 +6,9 @@
 import React from "react";
 // import { useHandContext } from "../../context/HandContext";
 import {useLocation} from "react-router";
-import PdfDisplay from "./layout/PdfDisplay/PdfDisplay";
-import SignatureDisplay from "./layout/SignatureDisplay/SignatureDisplay";
-import PreviewDisplay from "./layout/PreviewDisplay/PreviewDisplay";
+import PdfDisplay from "./layout/pdfDisplay/PdfDisplay";
+import SignatureDisplay from "./layout/signatureDisplay/SignatureDisplay";
+import PreviewDisplay from "./layout/previewDisplay/PreviewDisplay";
 
 const Edit: React.FC = () => {
     // const { canvas, baseDataUrl, handleBaseDataUrlChange } = useHandContext();

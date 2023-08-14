@@ -1,5 +1,5 @@
 /*
-* export default component name: PreviewDisplay
+* export default component name: previewDisplay
 * dev: ????
 * description: ~~~~~~~~~~~
 * */

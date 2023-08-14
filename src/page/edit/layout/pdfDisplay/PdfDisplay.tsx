@@ -1,11 +1,11 @@
 /*
-* export default comonent name: PdfDisplay
+* export default comonent name: pdfDisplay
 * dev: codeartitect
 * description: pdf파일을 보여주고 서명 데이터를 입력시킬 수 있는 컴포넌트
 * */
 import React, { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
-import Loading from "../../../loading/Loading";
+import Loading from "../loading/Loading";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
 
@@ -58,7 +58,9 @@ const PdfDisplay: React.FC<PdfDisplayProps> = ({ file }) => {
             } catch (error) {
                 console.error("Error loading PDF:", error);
             } finally {
-                setLoading(false); // 로딩이 끝났음을 표시
+                setTimeout(() => {
+                    setLoading(false); // 로딩이 끝났음을 표시
+                }, 1000);
             }
         };
 
@@ -66,10 +68,16 @@ const PdfDisplay: React.FC<PdfDisplayProps> = ({ file }) => {
     }, []);
 
     return (
-        <div className="w-full h-full relative">
-            {loading && <Loading />}
-            <div ref={containerRef}></div>
-        </div>
+        <>
+            {loading && (
+                <div className="fixed top-0 left-0 w-screen h-screen bg-white opacity-100">
+                    <Loading fileName={file.name}/>
+                </div>
+            )}
+            <div>
+                <div ref={containerRef}></div>
+            </div>
+        </>
     );
 };
 

@@ -1,5 +1,5 @@
 /*
-* export default component name: SignatureDisplay
+* export default component name: signatureDisplay
 * dev: dev: kimminsu31415
 * description: ~~~~~~~~~~~~
 * */
