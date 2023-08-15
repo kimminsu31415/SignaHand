@@ -49,8 +49,8 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   if (results.multiHandLandmarks) {
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
-        x = handLandmarks[8].x * 1280;
-        y = handLandmarks[8].y * 720;
+        x = handLandmarks[8].x * 640;
+        y = handLandmarks[8].y * 360;
         // 손 떨림 보정
         if (coordList.length >= 2) {
           x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;

@@ -79,8 +79,8 @@ const SignHand: React.FC<HandProps> = () => {
             console.log(error);
           }
         },
-        width: 1280,
-        height: 720,
+        width: 640,
+        height: 360,
       });
       camera.start();
     }
@@ -97,34 +97,32 @@ const SignHand: React.FC<HandProps> = () => {
 
 
   return (
-      <>
-        <div>
-          {/* 비디오 캡쳐 */}
-          <Webcam
-              audio={false}
-              // style={{ visibility: "hidden" }}
-              mirrored={true}
-              width={1280}
-              height={720}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              videoConstraints={{width: 1280, height: 720, facingMode: "user"}}
-          />
-          {/* 캔버스 */}
-          <div style={{position: 'relative', width: '1280px', height: '720 '}}>
-            <canvas style={{position: "absolute", top: "0px", left: "0px"}}
-                    ref={canvasRef}
-                    width={1280}
-                    height={720}
-            />
-            <canvas style={{position: "absolute", top: "0px", left: "0px"}}
-                    ref={canvasRefTop}
-                    width={1280}
-                    height={720}
-            />
-          </div>
-        </div>
-      </>
+    <div>
+    {/* 비디오 캡쳐 */}
+    <Webcam
+      audio={false}
+      // style={{ visibility: "hidden" }}
+      mirrored = {true}
+      width={640}
+      height={360}
+      ref={webcamRef}
+      screenshotFormat="image/jpeg"
+      videoConstraints={{ width: 640, height: 360, facingMode: "user" }}
+    />
+    {/* 캔버스 */}
+    <div style={{ position: 'relative', width: '640px', height: '360 '}}>
+      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
+        ref={canvasRef}
+        width={640}
+        height={360}
+      />
+      <canvas style={{ position: "absolute", top: "0px", left:"0px" }}
+        ref={canvasRefTop}
+        width={640}
+        height={360}
+      />
+    </div>
+  </div>
   );
 };
 

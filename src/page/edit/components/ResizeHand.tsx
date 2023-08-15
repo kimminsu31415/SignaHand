@@ -9,21 +9,29 @@ import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
 import { resizeImg } from "../../../utils/resizeImg";
-import { useHandContext } from "../../../context/HandContext";
+import { useResizeContext } from "../../../context/HandContext";
 
 
 
 const ResizeHand: React.FC = () => {
   const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
   const resultsRef = useRef<Results>();  // Results : 손 인식 결과
-  const { signWidth, signHeight, setSignWidth, setSignHeight } = useHandContext();
+  const { imgRef, imgRef2 } = useResizeContext();
 
   const ResultsListener = (results: Results) => {
     resultsRef.current = results;
-    const size = resizeImg(results);
-    if(size === "up") {
-        setSignWidth(signWidth * 1.5);
-        setSignHeight(signHeight * 1.5);
+    const resizeMode = resizeImg(results);
+    if(imgRef.current){
+      console.log("check",imgRef.current.width);
+      const currentWidth = (imgRef.current.width);
+      if(resizeMode == "up") {
+        const newWidth = currentWidth * 1.005;
+        imgRef.current.width = newWidth;
+      } else if (resizeMode == "down") {
+        const newWidth = currentWidth * 0.995;
+        imgRef.current.width = newWidth;
+      }
+      // console.log(imgRef.current.style.width);
     }
   };
 

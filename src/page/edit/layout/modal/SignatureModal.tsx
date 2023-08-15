@@ -19,7 +19,7 @@ interface SignatureModalProps {
 }
 
 const SignatureModal: React.FC<SignatureModalProps> = ({ id, title, content, writer, modal }) => {
-    const {handleBaseDataUrlChange} = useHandContext();
+    const {canvas, handleBaseDataUrlChange} = useHandContext();
     // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
 
     // useEffect(() => {
@@ -48,10 +48,19 @@ const SignatureModal: React.FC<SignatureModalProps> = ({ id, title, content, wri
 
     return (
         <>
-            <div>
+            {/* <div>
                 <p>손으로 그리기!</p>
                 <SignHand onBaseDataUrlChange={handleBaseDataUrlChange}/>
                 <button className="btn" onClick={closeModal}>XXXXXXXXXX</button>
+            </div> */}
+            <div>
+                {canvas === "view" &&  (
+                    <div>
+                        <p>손으로 그리기!</p>
+                        <SignHand onBaseDataUrlChange={handleBaseDataUrlChange} />
+                        <button className="btn" onClick={closeModal}>XXXXXXXXXX</button>
+                    </div>
+                )}
             </div>
         </>
     );
