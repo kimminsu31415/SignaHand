@@ -3,13 +3,13 @@ import { useHandContext, useResizeContext } from "../contexts/HandContext";
 import SignButton from './SignButton';
 import SignHand from "./SignHand";
 import ResizeHand from "./ResizeHand";
-import HandTest from "./HandTest";
 import {useLocation} from "react-router";
 import PdfViewer from "./PdfViewer";
+import MoveHand from "./MoveHand";
 
 const Work: React.FC = () => {
-    const { canvas, baseDataUrl, handleBaseDataUrlChange } = useHandContext();
-    const { imgRef } = useResizeContext();
+    const { canvas, baseDataUrlArr, handleBaseDataUrlChange, imgNumber } = useHandContext();
+    const { imgRef, imgRef2, signWidth, signHeight } = useResizeContext();
 
     /* Home 컴포넌트에서 사용자에게 입력받은 PDF 파일 넘겨받기*/
     const location = useLocation();
@@ -25,17 +25,28 @@ const Work: React.FC = () => {
                     <SignHand onBaseDataUrlChange={handleBaseDataUrlChange} />
                 )}
             </div>
-            <div style={{ position: "absolute", top: "0px", left:"1300px" }}>
-                {baseDataUrl != "" && (
+            <div style={{ position: "relative" }}>
+                {baseDataUrlArr[0] != "" && (
                     <img 
-                        src={baseDataUrl}
+                        src={baseDataUrlArr[0]}
                         ref = {imgRef}
+                        // width={signWidth}
+                        // height={signHeight}
+                        style={{position:'absolute', left:'700px', top:'0'}}
+                    />
+                )}
+                {baseDataUrlArr[1] != "" && (
+                    <img 
+                        src={baseDataUrlArr[1]}
+                        ref = {imgRef2}
+                        style={{position:'absolute', left:'1000px', top:'0'}}
                     />
                 )}
             </div>
             <div>
                 {canvas ==="non-view" && (
                     <ResizeHand />
+                    // <MoveHand />
                 )}
             </div>
         </>

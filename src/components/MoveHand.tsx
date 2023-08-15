@@ -2,30 +2,25 @@ import React, { useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { Hands, Results } from "@mediapipe/hands";
-import { resizeImg } from "../utils/resizeImg";
+import { moveImg } from "../utils/moveImg";
 import { useResizeContext } from "../contexts/HandContext";
 
 
 
-const ResizeHand: React.FC = () => {
+const MoveHand: React.FC = () => {
   const webcamRef = useRef<Webcam>(null); // 웹캠과 캔버스 요소에 대한 ref 생성
   const resultsRef = useRef<Results>();  // Results : 손 인식 결과
-  const { imgRef, imgRef2 } = useResizeContext();
+  const { imgRef } = useResizeContext();
 
   const ResultsListener = (results: Results) => {
     resultsRef.current = results;
-    const resizeMode = resizeImg(results);
-    if(imgRef.current){
-      console.log("check",imgRef.current.width);
-      const currentWidth = (imgRef.current.width);
-      if(resizeMode == "up") {
-        const newWidth = currentWidth * 1.005;
-        imgRef.current.width = newWidth;
-      } else if (resizeMode == "down") {
-        const newWidth = currentWidth * 0.995;
-        imgRef.current.width = newWidth;
-      }
-      // console.log(imgRef.current.style.width);
+    const moveCoord = moveImg(results);
+    if(moveCoord != undefined){
+        if(imgRef.current){
+            console.log(imgRef.current.style.left);
+            imgRef.current.style.left =moveCoord[0].toString()+'px';
+            imgRef.current.style.top =moveCoord[1].toString()+'px';
+        }
     }
   };
 
@@ -90,4 +85,4 @@ const ResizeHand: React.FC = () => {
   );
 };
 
-export default ResizeHand;
+export default MoveHand;

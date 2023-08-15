@@ -5,13 +5,17 @@ import React, { createContext, useContext, useState, useRef, ReactNode  } from "
 interface HandContextType {
     canvas: string;
     setCanvas: React.Dispatch<React.SetStateAction<string>>;
-    baseDataUrl: string;
-    setBaseDataUrl: React.Dispatch<React.SetStateAction<string>>;
+    baseDataUrlArr: string[];
+    setBaseDataUrlArr: React.Dispatch<React.SetStateAction<string[]>>;
+    imgNumber: number;
     handleBaseDataUrlChange: (baseDataUrl: string) => void;
 }
 
 interface ResizeContextType {
     imgRef: React.RefObject<HTMLImageElement>;
+    imgRef2: React.RefObject<HTMLImageElement>;
+    signWidth: string;
+    signHeight: string;
 }
 
 interface HandContextProviderProps {
@@ -45,14 +49,20 @@ export const useResizeContext = () => {
 // 상태와 함수를 관리, 제공하는 컴포넌트
 export const HandContextProvider: React.FC<HandContextProviderProps> = ({ children }) => {
     const [canvas, setCanvas] = useState<string>("non-view");
-    const [baseDataUrl, setBaseDataUrl] = useState<string>("");
-    const [signWidth, setSignWidth] = useState<string>('100px');
-    const [signHeight, setSignHeight] = useState<string>('100px');
+    // const [baseDataUrl, setBaseDataUrl] = useState<string>("");
+    const [baseDataUrlArr, setBaseDataUrlArr] = useState<string[]>([]);
+    const [imgNumber, setImgNumber] = useState<number>(0);
     const imgRef = useRef<HTMLImageElement>(null);
+    const imgRef2 = useRef<HTMLImageElement>(null);
+    const [signWidth,] = useState<string>('200px');
+    const [signHeight,] = useState<string>('200px');
 
     const handleBaseDataUrlChange = (baseDataUrl: string) => {
-        setBaseDataUrl(baseDataUrl);
         if (baseDataUrl !== "") {
+            const newArr = [...baseDataUrlArr];
+            newArr[imgNumber] = baseDataUrl;
+            setImgNumber(imgNumber+1);
+            setBaseDataUrlArr(newArr);
             setCanvas("non-view");
         }
     };
@@ -63,14 +73,18 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
             value={{
                 canvas,
                 setCanvas,
-                setBaseDataUrl,
-                baseDataUrl,
+                setBaseDataUrlArr,
+                baseDataUrlArr,
+                imgNumber,
                 handleBaseDataUrlChange,
             }}
         >
             <ResizeContext.Provider
                 value={{
-                    imgRef
+                    imgRef,
+                    imgRef2,
+                    signWidth,
+                    signHeight
                 }}
             >
                 {children}
