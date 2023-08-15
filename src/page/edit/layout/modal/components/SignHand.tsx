@@ -90,6 +90,7 @@ const SignHand: React.FC<HandProps> = () => {
     // Hand 컴포넌트 렌더링된 후 canvas 초기화
     const canvasCtx = canvasRef.current!.getContext("2d")!;
     canvasCtx.fillStyle = '#FFF';
+    canvasCtx.globalAlpha = 0.0; 
     canvasCtx.fillRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
 
     

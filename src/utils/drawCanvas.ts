@@ -89,6 +89,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
       // 캔버스 전체 지우기 모드
       if (mode === "erase"){
+        ctx.globalAlpha = 0.0;
         ctx.fillStyle = '#FFF';
         ctx.fillRect(0, 0, width, height);
       }
@@ -96,6 +97,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
       // 그리기 모드
       else if (mode === "draw"){
         if (coordList.length >= 2) {
+          ctx.globalAlpha = 1.0;
           ctx.beginPath();
           ctx.moveTo(coordList[coordList.length - 2].x, coordList[coordList.length - 2].y);
           ctx.lineTo(coordList[coordList.length - 1].x, coordList[coordList.length - 1].y);
