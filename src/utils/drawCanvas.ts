@@ -1,3 +1,8 @@
+/*
+* export default module name: drawCanvas
+* dev: seon5
+* description: ~~~~~~~~~~~~~~
+* */
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { HAND_CONNECTIONS, Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";
 
@@ -5,6 +10,7 @@ import { HAND_CONNECTIONS, Results, NormalizedLandmark, NormalizedLandmarkList }
 export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coordList: { x: number; y: number }[], ctxTop: CanvasRenderingContext2D) => {
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
+
 
   let x : number;
   let y : number;
@@ -16,6 +22,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let index_finger;
   let middle_finger;
   let ring_finger;
+
+  // base64 문자열 저장
+  let base = "";
 
   // 두 점 거리 계산 함수
   const calculateDistance = (p1: NormalizedLandmark, p2: NormalizedLandmark): number => {
@@ -40,8 +49,8 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   if (results.multiHandLandmarks) {
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
-        x = handLandmarks[8].x * 1280;
-        y = handLandmarks[8].y * 720;
+        x = handLandmarks[8].x * 640;
+        y = handLandmarks[8].y * 360;
         // 손 떨림 보정
         if (coordList.length >= 2) {
           x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;
@@ -80,6 +89,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
       // 캔버스 전체 지우기 모드
       if (mode === "erase"){
+        ctx.globalAlpha = 0.0;
         ctx.fillStyle = '#FFF';
         ctx.fillRect(0, 0, width, height);
       }
@@ -87,6 +97,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
       // 그리기 모드
       else if (mode === "draw"){
         if (coordList.length >= 2) {
+          ctx.globalAlpha = 1.0;
           ctx.beginPath();
           ctx.moveTo(coordList[coordList.length - 2].x, coordList[coordList.length - 2].y);
           ctx.lineTo(coordList[coordList.length - 1].x, coordList[coordList.length - 1].y);
@@ -96,12 +107,19 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           // console.log(coordList[coordList.length-1]);
         }
       }
-      else{
+      else if (mode ==="done"){
         console.log("done");
+        const canvasValue = ctx.canvas
+        base = canvasValue.toDataURL();
+        
+        // console.log(base);
       }
+      // else 예외 처리 코드 추가
       
     }
   }
   ctx.restore();
   ctxTop.restore();
+
+  return base;
 };

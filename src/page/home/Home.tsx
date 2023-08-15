@@ -1,11 +1,14 @@
+/*
+* export default component name: Home
+* dev: kimminsu31415
+* description: 루트 페이지 첫 화면, npm start하면 나오는 화면*/
 import React from "react";
-// import {Link} from "react-router-dom";
-import PdfUploader from "./PdfUploader";
+import PdfUploader from "./components/PdfUploader";
 
 const Home = () => {
     return (
         <>
-            <div className="grid grid-row-3  h-screen">
+            <div className="grid grid-row-3 h-screen"> 
                 <div className="row-span-2 flex items-center justify-center">
                     <div className="grid grid-cols-3">
                         <div className="col-span-2">

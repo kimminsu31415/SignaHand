@@ -1,21 +1,19 @@
+/*
+* export default comonent name: pdfDisplay
+* dev: codeartitect
+* description: pdf파일을 보여주고 서명 데이터를 입력시킬 수 있는 컴포넌트
+* */
 import React, { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import Loading from "../loading/Loading";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
 
-interface PdfViewerProps {
+interface PdfDisplayProps {
     file: File;
 }
 
-const LoadingScreen: React.FC = () => {
-    return (
-        <div className="loading-screen">
-            Loading...
-        </div>
-    );
-};
-
-const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
+const PdfDisplay: React.FC<PdfDisplayProps> = ({ file }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
 
@@ -35,9 +33,9 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
                 /* PDF 문서 객체 */
                 const pdf = await loadingTask.promise;
 
-                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-
+                // for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                //     const page = await pdf.getPage(pageNum);
+                const page = await pdf.getPage(1);
                     const scale = 1;
                     const viewport = page.getViewport({ scale });
 
@@ -56,23 +54,31 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ file }) => {
                     container.appendChild(canvas);
 
                     await page.render(renderContext).promise;
-                }
+                // }
             } catch (error) {
                 console.error("Error loading PDF:", error);
             } finally {
-                setLoading(false); // 로딩이 끝났음을 표시
+                setTimeout(() => {
+                    setLoading(false); // 로딩이 끝났음을 표시
+                }, 1000);
             }
         };
 
         loadPDF();
-    }, [pdfUrl]);
+    }, []);
 
     return (
-        <div className="w-full h-full relative">
-            {loading && <LoadingScreen />}
-            <div ref={containerRef}></div>
-        </div>
+        <>
+            {loading && (
+                <div className="fixed top-0 left-0 w-screen h-screen bg-white opacity-100">
+                    <Loading fileName={file.name}/>
+                </div>
+            )}
+            <div>
+                <div ref={containerRef}></div>
+            </div>
+        </>
     );
 };
 
-export default PdfViewer;
+export default PdfDisplay;
