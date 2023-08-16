@@ -31,7 +31,6 @@ const ResizeHand: React.FC = () => {
         const newWidth = currentWidth * 0.995;
         imgRef.current.width = newWidth;
       }
-      // console.log(imgRef.current.style.width);
     }
   };
 

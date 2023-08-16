@@ -11,16 +11,34 @@ interface HandContextType {
     handleBaseDataUrlChange: (baseDataUrl: string) => void;
 }
 
+interface CopiedImgInfo {
+    id: number;
+    ref: React.RefObject<HTMLImageElement>;
+}
+
 interface ResizeContextType {
-    imgRef: React.RefObject<HTMLImageElement>;
+    imgRef: React.RefObject<HTMLImageElement>; // <SignHand>로 저장한 서명에 대한 ref
     imgRef2: React.RefObject<HTMLImageElement>;
-    signWidth: string;
+
+    copiedImgRef: React.RefObject<HTMLImageElement>; // 복제된 서명에 대한 ref
+    
+    signWidth: string; // 서명 크기 조절을 위한 width, height
     signHeight: string;
+
+    copiedSigns1: CopiedImgInfo[]; // 복제된 서명 이미지들의 정보를 저장하는 배열
+    setCopiedSigns1: React.Dispatch<React.SetStateAction<CopiedImgInfo[]>>;
+    copiedSigns2: CopiedImgInfo[]; 
+    setCopiedSigns2: React.Dispatch<React.SetStateAction<CopiedImgInfo[]>>;
+    
+    selectedSign: number; // 저장된 두 개의 서명 중 어떤 서명을 복제&이동 할 것인지 결정
+    setSelectedSign: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface HandContextProviderProps {
     children: ReactNode;
 }
+
+
 
 // Context 생성
 const HandContext = createContext<HandContextType | undefined>(undefined);
@@ -54,8 +72,16 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
     const [imgNumber, setImgNumber] = useState<number>(0);
     const imgRef = useRef<HTMLImageElement>(null);
     const imgRef2 = useRef<HTMLImageElement>(null);
+    const copiedImgRef = useRef<HTMLImageElement>(null);
     const [signWidth,] = useState<string>('200px');
     const [signHeight,] = useState<string>('200px');
+
+    const [copiedSigns1, setCopiedSigns1] = useState<CopiedImgInfo[]>([]);
+    const [copiedSigns2, setCopiedSigns2] = useState<CopiedImgInfo[]>([]);
+
+    const [selectedSign, setSelectedSign] = useState<number>(1);
+
+    const [moveHand, setMoveHand] = useState<string>("non-view")
 
     const handleBaseDataUrlChange = (baseDataUrl: string) => {
         if (baseDataUrl !== "") {
@@ -83,8 +109,15 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
                 value={{
                     imgRef,
                     imgRef2,
+                    copiedImgRef,
                     signWidth,
-                    signHeight
+                    signHeight,
+                    copiedSigns1,
+                    setCopiedSigns1,
+                    copiedSigns2,
+                    setCopiedSigns2,
+                    selectedSign,
+                    setSelectedSign,
                 }}
             >
                 {children}

@@ -3,8 +3,8 @@
 * dev: seon5
 * description: ~~~~~~~~~~~~~~
 * */
-import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
-import { HAND_CONNECTIONS, Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";
+import { drawLandmarks } from "@mediapipe/drawing_utils";
+import { Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";
 
 
 export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coordList: { x: number; y: number }[], ctxTop: CanvasRenderingContext2D) => {
@@ -49,8 +49,8 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   if (results.multiHandLandmarks) {
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
-        x = handLandmarks[8].x * 640;
-        y = handLandmarks[8].y * 360;
+        x = handLandmarks[8].x * 920;
+        y = handLandmarks[8].y * 515;
         // 손 떨림 보정
         if (coordList.length >= 2) {
           x = coordList[coordList.length - 1].x + (x - coordList[coordList.length - 1].x)/4;
@@ -71,11 +71,6 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           mode = "draw";
         }
       }
-      // 골격 그리기
-      // drawConnectors(ctx, landmarks, HAND_CONNECTIONS, {
-      //   color: "#FFFFFF",
-      //   lineWidth: 5,
-      // });
 
       console.log(mode);
 
@@ -104,15 +99,12 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
           ctx.lineWidth = 3;
           ctx.strokeStyle = '#000000';
           ctx.stroke();
-          // console.log(coordList[coordList.length-1]);
         }
       }
       else if (mode ==="done"){
         console.log("done");
         const canvasValue = ctx.canvas
         base = canvasValue.toDataURL();
-        
-        // console.log(base);
       }
       // else 예외 처리 코드 추가
       

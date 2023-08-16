@@ -39,7 +39,7 @@ export const resizeImg = (results: Results) => {
         }
 
         if (resizeMode === "up"){
-            return "up"; // break point 지정해서 up이나 down이 한 번만 반환되도록 수정해서 과부하 줄여보기.
+            return "up";
         }
         
         else if (resizeMode === "down"){
