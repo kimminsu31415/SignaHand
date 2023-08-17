@@ -114,7 +114,6 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
       // else 예외 처리 코드 추가
       
     }
-
     if (handNum == 2) { // 양 손 펼치면 캔버스 clear
       ctx.clearRect(0, 0, width, height);
     }
