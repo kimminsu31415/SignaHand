@@ -23,6 +23,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
   let middle_finger;
   let ring_finger;
 
+  // 손 개수
+  let handNum;
+
   // base64 문자열 저장
   let base = "";
 
@@ -47,6 +50,7 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
 
   // 손의 랜드마크 그리기
   if (results.multiHandLandmarks) {
+    handNum = 0;
     for (const handLandmarks of results.multiHandLandmarks) {
       if (handLandmarks[8]) {
         x = handLandmarks[8].x * 920;
@@ -64,7 +68,8 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
         middle_finger = calculateDistance(handLandmarks[12], handLandmarks[0]) < calculateDistance(handLandmarks[9], handLandmarks[0]);
         ring_finger = calculateDistance(handLandmarks[16], handLandmarks[0]) < calculateDistance(handLandmarks[13], handLandmarks[0]);
         if (!index_finger && !middle_finger && !ring_finger){
-          mode = "erase";
+          mode = "move";
+          handNum++;
         }else if (!index_finger && middle_finger){
           mode = "done";
         }else if (!index_finger && !middle_finger){
@@ -82,10 +87,10 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
         radius: 2,
       });
 
-      // 캔버스 전체 지우기 모드
-      if (mode === "erase"){
-        ctx.globalAlpha = 0.0;
-        ctx.fillStyle = '#FFF';
+      // 이동 모드
+      if (mode === "move"){
+        // ctx.globalAlpha = 0.0;
+        // ctx.fillStyle = '#FFF';
         ctx.fillRect(0, 0, width, height);
       }
       
@@ -108,6 +113,9 @@ export const drawCanvas = (ctx: CanvasRenderingContext2D, results: Results, coor
       }
       // else 예외 처리 코드 추가
       
+    }
+    if (handNum == 2) { // 양 손 펼치면 캔버스 clear
+      ctx.clearRect(0, 0, width, height);
     }
   }
   ctx.restore();

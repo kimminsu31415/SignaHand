@@ -55,7 +55,7 @@ const SignHand: React.FC<HandProps> = ({onCloseModal}) => {
     // 손 인식 설정 옵션
     hands.setOptions({
       // selfieMode : true,
-      maxNumHands: 1,
+      maxNumHands: 2,
       modelComplexity: 1,
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5,
