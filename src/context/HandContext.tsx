@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+// context API
+import React, { createContext, useContext, useState, ReactNode  } from "react";
+
+// 손 동작 관련 컴포넌트에서 사용되는 상태와 함수의 타입 지정
+interface HandContextType {
+    canvas: string;
+    setCanvas: React.Dispatch<React.SetStateAction<string>>;
+    baseDataUrl: string;
+    setBaseDataUrl: React.Dispatch<React.SetStateAction<string>>;
+    handleBaseDataUrlChange: (baseDataUrl: string) => void;
+    signWidth: number;
+    setSignWidth: React.Dispatch<React.SetStateAction<number>>;
+    signHeight: number;
+    setSignHeight: React.Dispatch<React.SetStateAction<number>>;
+=======
 /*
 * export default module name: 
 * dev: seon5
@@ -38,16 +54,22 @@ interface ResizeContextType {
     
     selectedSign: number; // 저장된 두 개의 서명 중 어떤 서명을 복제&이동 할 것인지 결정
     setSelectedSign: React.Dispatch<React.SetStateAction<number>>;
+>>>>>>> 2f6ab0c997d9980f10ce86d0045bbe1e4523f592
 }
 
 interface HandContextProviderProps {
     children: ReactNode;
 }
 
+<<<<<<< HEAD
+// Context 생성
+const HandContext = createContext<HandContextType | undefined>(undefined);
+=======
 
 // Context 생성
 const HandContext = createContext<HandContextType | undefined>(undefined);
 const ResizeContext = createContext<ResizeContextType | undefined>(undefined);
+>>>>>>> 2f6ab0c997d9980f10ce86d0045bbe1e4523f592
 
 // HandContext가 관리하는 상태와 함수를 사용할 수 있도록 하는 커스텀 훅
 export const useHandContext = () => {
@@ -58,6 +80,19 @@ export const useHandContext = () => {
     return context;
 }
 
+<<<<<<< HEAD
+// 상태와 함수를 관리, 제공하는 컴포넌트
+export const HandContextProvider: React.FC<HandContextProviderProps> = ({ children }) => {
+    const [canvas, setCanvas] = useState<string>("non-view");
+    const [baseDataUrl, setBaseDataUrl] = useState<string>("");
+    const [signWidth, setSignWidth] = useState<number>(100);
+    const [signHeight, setSignHeight] = useState<number>(100);
+
+
+    const handleBaseDataUrlChange = (baseDataUrl: string) => {
+        setBaseDataUrl(baseDataUrl);
+        if (baseDataUrl !== "") {
+=======
 // ResizeContext가 관리하는 상태와 함수를 사용할 수 있도록 하는 커스텀 훅
 export const useResizeContext = () => {
     const context = useContext(ResizeContext);
@@ -94,6 +129,7 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
             newArr[imgNumber] = baseDataUrl;
             setImgNumber(imgNumber+1);
             setBaseDataUrlArr(newArr);
+>>>>>>> 2f6ab0c997d9980f10ce86d0045bbe1e4523f592
             setCanvas("non-view");
         }
     };
@@ -104,6 +140,18 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
             value={{
                 canvas,
                 setCanvas,
+<<<<<<< HEAD
+                setBaseDataUrl,
+                baseDataUrl,
+                handleBaseDataUrlChange,
+                signWidth,
+                signHeight,
+                setSignWidth,
+                setSignHeight
+            }}
+        >
+            {children}
+=======
                 setBaseDataUrlArr,
                 baseDataUrlArr,
                 imgNumber,
@@ -127,6 +175,7 @@ export const HandContextProvider: React.FC<HandContextProviderProps> = ({ childr
             >
                 {children}
             </ResizeContext.Provider>
+>>>>>>> 2f6ab0c997d9980f10ce86d0045bbe1e4523f592
         </HandContext.Provider>
     );
 }
