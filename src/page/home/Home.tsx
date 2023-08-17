@@ -1,7 +1,9 @@
 /*
 * export default component name: Home
 * dev: kimminsu31415
-* description: 루트 페이지 첫 화면, npm start하면 나오는 화면*/
+* description: 루트 페이지 첫 화면, npm start하면 나오는 화면
+* 시작하기 버튼은 파일 선택 버튼
+*/
 import React from "react";
 import PdfUploader from "./components/PdfUploader";
 
@@ -10,27 +12,13 @@ const Home = () => {
         <>
             <div className="grid grid-row-3 h-screen"> 
                 <div className="row-span-2 flex items-center justify-center">
-                    <div className="grid grid-cols-3">
-                        <div className="col-span-2">
-                            <div className="container mx-auto p-8">
-                                <h1 className="text-4xl font-bold mb-4">Signahand</h1>
-                                <p className="text-lg text-gray-700">프로젝트 설명</p>
-                                <div className="mt-4">
-                                    <h2 className="text-2xl font-bold mb-2">주요 기능</h2>
-                                    <ul className="list-disc list-inside">
-                                        <li>기능 1</li>
-                                        <li>기능 2</li>
-                                        <li>기능 3</li>
-                                    </ul>
-                                </div>
-                                <div className="mt-4">
-                                    <h2 className="text-2xl font-bold mb-2">프로젝트 링크</h2>
-                                    <a href="#" className="text-blue-500">프로젝트 링크</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="grid grid-row-2">
                         <div className="col-span-1">
-                            <img src="assets/images/img.png" className="w-full h-auto rounded-lg" alt="Sample Image"/>
+                            <img src="assets/images/signahandHome.png" className="w-full h-auto rounded-lg" alt="Sample Image"/>
+                        </div>
+                        <div className="container mx-auto p-8 text-center">
+                            <h1 className="text-4xl font-bold mb-4">손동작 전자서명 서비스</h1>
+                            <h2 className="text-lg font-bold text-gray-700">사인을 만들고 파일에 적용시키고 다운로드까지 손동작으로 모든 것을 할 수 있습니다. 모든 작업을 손동작으로 편리하게 시작해보세요.</h2>
                         </div>
                     </div>
                 </div>
