@@ -1,7 +1,7 @@
 /*
 * export default module name: moveImg
 * dev: seon5
-* description: ~~~~~~~~~~~~~~
+* description: 손 검출 결과를 처리하여 handMode를 판단하고 MoveHand 컴포넌트로 handMode 리턴
 * */
 import { Results, NormalizedLandmark } from "@mediapipe/hands";
 

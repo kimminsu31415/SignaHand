@@ -1,3 +1,9 @@
+/*
+* export default module name: MoveHand
+* dev: seon5
+* description: 저장된 서명을 클릭했을 때 렌더링되며, 복제된 서명 이미지의 위치와 크기를 조절하고 고정시킴
+* */
+
 import React, { useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";

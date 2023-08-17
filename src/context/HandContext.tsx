@@ -1,7 +1,12 @@
-// context API
+/*
+* export default module name: 
+* dev: seon5
+* description: 손 동작 관련 상태와 함수를 관리하기 위한 context API
+* */
+
 import React, { createContext, useContext, useState, useRef, ReactNode  } from "react";
 
-// 손 동작 관련 컴포넌트에서 사용되는 상태와 함수의 타입 지정
+// SignHand 컴포넌트와 관련하여 사용되는 상태와 함수의 타입 지정
 interface HandContextType {
     canvas: string;
     setCanvas: React.Dispatch<React.SetStateAction<string>>;
@@ -16,6 +21,7 @@ interface CopiedImgInfo {
     ref: React.RefObject<HTMLImageElement>;
 }
 
+// ResizeHand 컴포넌트와 관련하여 사용되는 상태와 함수의 타입 지정
 interface ResizeContextType {
     imgRef: React.RefObject<HTMLImageElement>; // <SignHand>로 저장한 서명에 대한 ref
     imgRef2: React.RefObject<HTMLImageElement>;
@@ -37,7 +43,6 @@ interface ResizeContextType {
 interface HandContextProviderProps {
     children: ReactNode;
 }
-
 
 
 // Context 생성

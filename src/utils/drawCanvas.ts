@@ -1,7 +1,7 @@
 /*
 * export default module name: drawCanvas
 * dev: seon5
-* description: ~~~~~~~~~~~~~~
+* description: 손 검출 결과를 처리하여 손 동작 모드를 판단하고, 서명이 완료되면 서명 이미지의 base64 문자열이 저장된 base를 SignHand로 리턴
 * */
 import { drawLandmarks } from "@mediapipe/drawing_utils";
 import { Results, NormalizedLandmark, NormalizedLandmarkList } from "@mediapipe/hands";

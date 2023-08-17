@@ -1,7 +1,7 @@
 /*
 * export default component name: SignHand
 * dev: seon5
-* description: ~~~~~~~~~~~~~
+* description: 서명 추가 버튼 클릭시 렌더링되는 서명을 위한 컴포넌트
 * */
 import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
